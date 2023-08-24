@@ -1,0 +1,13 @@
+{
+	"id": "auto_execute",
+	"version": "1.0",
+	"name": "auto-execute",
+	"description": {
+		"en_us": "A portable plugin for batch execution of instructions",
+		"zh_cn": "一个便携化批量执行指令的插件"
+	},
+	"author": [
+		"FRUITS_CANDY"
+	],
+	"link": "https://github.com/GHS-Official/Auto-Execute"
+}
