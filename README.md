@@ -6,4 +6,11 @@
 
 需要 `v2.6.0` 以上的 [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)
 
-代码参考了 Fallen-Breath 的 [QuickBackupM](https://github.com/TISUnion/QuickBackupM).
+部分代码参考了 Fallen-Breath 的 [QuickBackupM](https://github.com/TISUnion/QuickBackupM).
+
+##  命令基本说明
+
+`!!ae` 显示帮助信息
+
+`!!ac create <脚本id>` 创建一个脚本用于存储指令
+
