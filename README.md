@@ -40,7 +40,7 @@
 
 `!!ae reload` 重载插件，这会使正在运行的脚本终止运行
 
-除了以上MCDR指令，ae还有着专用于脚本的指令
+除了以上MCDR指令，还有着专用于脚本的指令（只能作用于脚本内）
 
 `@ae sleep <时间>` 使脚本暂停一段时间，单位为秒，可以为小数，例如@ae sleep 60使得脚本运行于此时间隔60秒后继续执行剩余指令
 
@@ -81,11 +81,24 @@
 ```
 {
     "description": "",
-    "single_permission": -1,
+    "single_permission": 0,
     "command": []
 }
 ```
+### 2.脚本内容
+
 #### description
+脚本的简介，默认为空，为字符串
+
+#### single_permission
+脚本单独权限，默认为0，如果一个脚本的权限高于对脚本进行操作的指令（如add,insert,del,re,remove,set,run,auto,des）的权限，那么对该脚本进行操作需要的权限以其独立权限为准。
+
+#### command
+一个存放脚本命令的列表，默认为空，执行时具有顺序，可以存放三种类型的指令，MCDR指令，Minecraft指令，脚本专用指令
+
+Minecraft指令必须以/开头，否则脚本不会执行
+
+脚本专属指令以@ae开头，具体指令见命令基本说明
 
 
 
