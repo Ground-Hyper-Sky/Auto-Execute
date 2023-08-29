@@ -11,7 +11,7 @@ class Default_total_config(Serializable):
     turn_off_auto_execute: bool = False
     auto_execute_list: Dict[str, str] = []
     minimum_permission_level: Dict[str, int] = {
-        'create': 2,
+        'make': 2,
         'add': 2,
         'del': 2,
         'remove': 2,
@@ -26,11 +26,12 @@ class Default_total_config(Serializable):
         'kill': 2,
         'insert': 2,
         "re": 2,
-        "reload": 2
+        "reload": 2,
+        "run_list": 0
     }
 
 
 class Default_script_config(Serializable):
     description: str = ''
-    single_permission: int = -1
+    single_permission: int = 0
     command: List[str] = []

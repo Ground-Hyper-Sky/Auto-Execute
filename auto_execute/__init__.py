@@ -22,22 +22,23 @@ help_msg = '''
 §3作者：FRUITS_CANDY
 §d【格式说明】
 #sc=!!ae,st=点击运行指令#§7{0} §a§l[▷] §e显示帮助信息
-#sc=!!ae create,st=点击运行指令#§7{0} create §b<脚本id> §a§l[▷] §e创建一个脚本用于存储要执行的指令
-#sc=!!ae add,st=点击运行指令#§7{0} add §b<脚本id> <指令> §a§l[▷] §e往脚本里添加一条指令,脚本里的的指令具有顺序
-#sc=!!ae insert,st=点击运行指令#§7{0} insert §b<脚本id> <行> <指令> §a§l[▷] §e在脚本指定行插入一条指令,可以理解为插队
-#sc=!!ae del,st=点击运行指令#§7{0} del §b<脚本id> <指令> §a§l[▷] §e删除某个脚本里的一条指令,脚本里的指令具有顺序
-#sc=!!ae re,st=点击运行指令#§7{0} re §b<脚本id> <行> §a§l[▷] §e删除脚本指定行数的指令,支持批量删除,例如1-3
-#sc=!!ae remove,st=点击运行指令#§7{0} remove §b<脚本id> §a§l[▷] §e删除某个脚本
+#sc=!!ae make,st=点击运行指令#§7{0} make §b<脚本名> §a§l[▷] §e创建一个脚本用于存储指令
+#sc=!!ae add,st=点击运行指令#§7{0} add §b<脚本名> <指令> §a§l[▷] §e往脚本里添加一条指令,脚本里的的指令具有顺序
+#sc=!!ae insert,st=点击运行指令#§7{0} insert §b<脚本名> <行> <指令> §a§l[▷] §e在指定行插入一条指令,可以理解为插队
+#sc=!!ae del,st=点击运行指令#§7{0} del §b<脚本名> <指令> §a§l[▷] §e删除一条指令,出现重复指令,删除更靠前的指令
+#sc=!!ae re,st=点击运行指令#§7{0} re §b<脚本名> <行> §a§l[▷] §e删除指定行数的指令,支持批量删除,例如1-3
+#sc=!!ae remove,st=点击运行指令#§7{0} remove §b<脚本名> §a§l[▷] §e删除某个脚本
 #sc=!!ae list,st=点击运行指令#§7{0} list §a§l[▷] §e查看所有存在的脚本
 #sc=!!ae auto_list,st=点击运行指令#§7{0} auto_list §a§l[▷] §e查看自动启动的脚本
-#sc=!!ae look,st=点击运行指令#§7{0} look §b<脚本id> §a§l[▷] §e查看某个脚本里的内容
-#sc=!!ae run,st=点击运行指令#§7{0} run §b<脚本id> §a§l[▷] §e手动执行某个脚本
-#sc=!!ae auto,st=点击运行指令#§7{0} auto §b<脚本id> §a§l[▷] §e打开或者关闭某个脚本自动执行
-#sc=!!ae kill,st=点击运行指令#§7{0} kill §b<脚本id> §a§l[▷] §e终止某个脚本运行
-#sc=!!ae des,st=点击运行指令#§7{0} des §b<脚本id> §a§l[▷] §e修改某个脚本的简介
-#sc=!!ae set,st=点击运行指令#§7{0} set §b<脚本id> <权限0-4> §a§l[▷] §e修改某个脚本的权限
+#sc=!!ae run_list,st=点击运行指令#§7{0} run_list §a§l[▷] §e查看正在运行的脚本
+#sc=!!ae look,st=点击运行指令#§7{0} look §b<脚本名> §a§l[▷] §e查看某个脚本里的内容,及指令行数
+#sc=!!ae run,st=点击运行指令#§7{0} run §b<脚本名> §a§l[▷] §e手动执行某个脚本
+#sc=!!ae auto,st=点击运行指令#§7{0} auto §b<脚本名> §a§l[▷] §e打开或者关闭某个脚本自动执行
+#sc=!!ae kill,st=点击运行指令#§7{0} kill §b<脚本名> §a§l[▷] §e终止某个脚本运行
+#sc=!!ae des,st=点击运行指令#§7{0} des §b<脚本名> §a§l[▷] §e修改某个脚本的简介
+#sc=!!ae set,st=点击运行指令#§7{0} set §b<脚本名> <权限> §a§l[▷] §e修改某个脚本的权限
 #sc=!!ae reload,st=点击运行指令#§7{0} reload §a§l[▷] §e重载插件
-'''.format(Prefix, "Auto execute", "1.0")
+'''.format(Prefix, "Auto execute", "1.0.0")
 
 
 def create_script(source: CommandSource, dic: dict):
@@ -235,7 +236,8 @@ def show_content(source: CommandSource, dic: dict):
         return
 
     try:
-        with codecs.open(script, 'r', encoding='utf-8-sig') as fp, codecs.open(total_config_path, 'r', encoding="utf-8-sig") as p:
+        with codecs.open(script, 'r', encoding='utf-8-sig') as fp, codecs.open(total_config_path, 'r',
+                                                                               encoding="utf-8-sig") as p:
             con = json.load(fp)
             t = json.load(p)
 
@@ -511,6 +513,21 @@ def reload_plugin(source: CommandSource):
     source.reply("§a§l插件已重载")
 
 
+def show_tasks(source: CommandSource):
+    if not running_tasks:
+        source.reply("§4§l没有脚本正在运行")
+        return
+
+    msg_list = ["§d【自动启动列表】"]
+
+    for i in running_tasks:
+        msg_list.append(f"- {i} #sc=!!ae kill {i},st=终止该脚本运行#§4§l[p]")
+
+    msg = "\n".join(msg_list)
+    res = Message.get_json_str(msg)
+    source.reply(res)
+
+
 def on_load(server: PluginServerInterface, old):
     server.register_help_message('!!ae', '查看与执行脚本有关的指令')
     check_file()
@@ -524,7 +541,7 @@ def on_load(server: PluginServerInterface, old):
     require = Requirements()
 
     builder.command('!!ae', print_help_msg)
-    builder.command('!!ae create <script>', create_script)
+    builder.command('!!ae make <script>', create_script)
     builder.command('!!ae remove <script>', remove_script)
     builder.command('!!ae add <script> <command>', add_command)
     builder.command('!!ae del <script> <command>', delete_command)
@@ -539,6 +556,7 @@ def on_load(server: PluginServerInterface, old):
     builder.command('!!ae insert <script> <index> <command>', insert_command)
     builder.command('!!ae re <script> <value>', del_index)
     builder.command('!!ae reload', reload_plugin)
+    builder.command('!!ae run_list', show_tasks)
 
     builder.arg('script', Text)
     builder.arg('command', GreedyText)
@@ -546,12 +564,12 @@ def on_load(server: PluginServerInterface, old):
     builder.arg('index', Integer)
     builder.arg('value', Text)
 
-    command_literals = ["create", "remove", "add", "del", "list", "look", "auto_list", "auto", "run", "kill",
-                        "des", "set", "insert", "re", "reload"]
+    command_literals = ["make", "remove", "add", "del", "list", "look", "auto_list", "auto", "run", "kill",
+                        "des", "set", "insert", "re", "reload", "run_list"]
 
     for literal in command_literals:
         permissions = level_dict.get(literal, [])
-        builder.literal(literal).requires(require.has_permission(permissions), failure_message_getter=lambda err: "权限不足")
+        builder.literal(literal).requires(require.has_permission(permissions),failure_message_getter=lambda err: "权限不足")
 
     builder.register(server)
 

@@ -1,13 +1,20 @@
 {
 	"id": "auto_execute",
-	"version": "1.0",
-	"name": "auto-execute",
+	"version": "1.0.0",
+	"name": "Auto-Execute",
 	"description": {
-		"en_us": "A portable plugin for batch execution of instructions",
-		"zh_cn": "一个便携化批量执行指令的插件"
+		"en_us": "An MCDR plugin that stores various instructions for multimodal execution based on scripts",
+		"zh_cn": "一个以脚本为基本单位存储各类指令多模式执行的MCDR插件"
 	},
 	"author": [
-		"FRUITS_CANDY"
+		"GHS-Official"
 	],
-	"link": "https://github.com/GHS-Official/Auto-Execute"
+	"link": "https://github.com/GHS-Official/Auto-Execute",
+	"dependencies": {
+		"mcdreforged": ">=2.6.0"
+	},
+	"archive_name": "Auto-Execute-v{version}",
+	"resources": [
+		"LICENSE"
+	]
 }
