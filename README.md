@@ -50,7 +50,7 @@
 
 如果你不太熟悉json文件格式，建议您使用指令完成操作，而不是修改配置文件
 
-### auto_execute
+### AutoExecute
 
 路径：`config/AutoExecute.json`
 
@@ -73,6 +73,19 @@
 是否关闭自动启动 默认为false
 
 设置为true后服务器启动时自启列表里的脚本不会被执行
+
+## 脚本基本构成
+### 1.创建一个脚本
+第一次运行插件后，会看到一个为Auto_execute_script的文件夹，这就是存放脚本的地方。
+创建一个脚本有两种方式，一种是通过create指令来创建，一种是手动创建。脚本为json格式，如果内容格式不正确，脚本会无法识别，下面给出了一个默认的脚本内容模板。
+```
+{
+    "description": "",
+    "single_permission": -1,
+    "command": []
+}
+```
+#### description
 
 
 
