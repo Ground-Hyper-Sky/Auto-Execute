@@ -4,7 +4,7 @@
 	"name": "Auto-Execute",
 	"description": {
 		"en_us": "An MCDR plugin that stores various instructions for multimodal execution based on scripts",
-		"zh_cn": "一个以脚本为基本单位存储各类指令多模式执行的MCDR插件"
+		"zh_cn": "一个以脚本为单位存储各类指令多模式执行的MCDR插件"
 	},
 	"author": [
 		"GHS-Official"
