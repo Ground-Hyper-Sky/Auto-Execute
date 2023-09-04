@@ -71,7 +71,7 @@ class Message:
         for i, (code_line, text_line) in enumerate(zip(code, text)):
             obj = RText(text_line + "\n") if i == len(code) - 1 and flag > 1 else RText(text_line)
             style_lst = []
-            for node in code_line.split(","):
+            for node in code_line.split("<>"):
                 if node.strip():
                     Message.apply_color_and_style_dict(node, obj, color_and_style_dict)
                     Message.apply_action_dict(node, obj, action_dict)
