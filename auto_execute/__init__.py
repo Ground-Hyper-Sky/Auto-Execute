@@ -21,23 +21,23 @@ help_msg = '''
 一个便携化的§a批量执行指令§c的MCDR§a插件
 §3作者：FRUITS_CANDY
 §d【格式说明】
-#sc=!!ae,st=点击运行指令#§7{0} §a§l[▷] §e显示帮助信息
-#sc=!!ae make,st=点击运行指令#§7{0} make §b<脚本名> §a§l[▷] §e创建一个脚本用于存储指令
-#sc=!!ae add,st=点击运行指令#§7{0} add §b<脚本名> <指令> §a§l[▷] §e往脚本里添加一条指令,脚本里的的指令具有顺序
-#sc=!!ae insert,st=点击运行指令#§7{0} insert §b<脚本名> <行> <指令> §a§l[▷] §e在指定行插入一条指令,可以理解为插队
-#sc=!!ae del,st=点击运行指令#§7{0} del §b<脚本名> <指令> §a§l[▷] §e删除一条指令,出现重复指令,删除更靠前的指令
-#sc=!!ae re,st=点击运行指令#§7{0} re §b<脚本名> <行> §a§l[▷] §e删除指定行数的指令,支持批量删除,例如1-3
-#sc=!!ae remove,st=点击运行指令#§7{0} remove §b<脚本名> §a§l[▷] §e删除某个脚本
-#sc=!!ae list,st=点击运行指令#§7{0} list §a§l[▷] §e查看所有存在的脚本
-#sc=!!ae auto_list,st=点击运行指令#§7{0} auto_list §a§l[▷] §e查看自动启动的脚本
-#sc=!!ae run_list,st=点击运行指令#§7{0} run_list §a§l[▷] §e查看正在运行的脚本
-#sc=!!ae look,st=点击运行指令#§7{0} look §b<脚本名> §a§l[▷] §e查看某个脚本里的内容,及指令行数
-#sc=!!ae run,st=点击运行指令#§7{0} run §b<脚本名> §a§l[▷] §e手动执行某个脚本
-#sc=!!ae auto,st=点击运行指令#§7{0} auto §b<脚本名> §a§l[▷] §e打开或者关闭某个脚本自动执行
-#sc=!!ae kill,st=点击运行指令#§7{0} kill §b<脚本名> §a§l[▷] §e终止某个脚本运行
-#sc=!!ae des,st=点击运行指令#§7{0} des §b<脚本名> §a§l[▷] §e修改某个脚本的简介
-#sc=!!ae set,st=点击运行指令#§7{0} set §b<脚本名> <权限> §a§l[▷] §e修改某个脚本的权限
-#sc=!!ae reload,st=点击运行指令#§7{0} reload §a§l[▷] §e重载插件
+#sc=!!ae<>st=点击运行指令#§7{0} §a§l[▷] §e显示帮助信息
+#sc=!!ae make<>st=点击运行指令#§7{0} make §b<脚本名> §a§l[▷] §e创建一个脚本用于存储指令
+#sc=!!ae add<>st=点击运行指令#§7{0} add §b<脚本名> <指令> §a§l[▷] §e往脚本里添加一条指令,脚本里的的指令具有顺序
+#sc=!!ae insert<>st=点击运行指令#§7{0} insert §b<脚本名> <行> <指令> §a§l[▷] §e在指定行插入一条指令,可以理解为插队
+#sc=!!ae del<>st=点击运行指令#§7{0} del §b<脚本名> <指令> §a§l[▷] §e删除一条指令,出现重复指令,删除更靠前的指令
+#sc=!!ae re<>st=点击运行指令#§7{0} re §b<脚本名> <行> §a§l[▷] §e删除指定行数的指令,支持批量删除,例如1-3
+#sc=!!ae remove<>st=点击运行指令#§7{0} remove §b<脚本名> §a§l[▷] §e删除某个脚本
+#sc=!!ae list<>st=点击运行指令#§7{0} list §a§l[▷] §e查看所有存在的脚本
+#sc=!!ae auto_list<>st=点击运行指令#§7{0} auto_list §a§l[▷] §e查看自动启动的脚本
+#sc=!!ae run_list<>st=点击运行指令#§7{0} run_list §a§l[▷] §e查看正在运行的脚本
+#sc=!!ae look<>st=点击运行指令#§7{0} look §b<脚本名> §a§l[▷] §e查看某个脚本里的内容,及指令行数
+#sc=!!ae run<>st=点击运行指令#§7{0} run §b<脚本名> §a§l[▷] §e手动执行某个脚本
+#sc=!!ae auto<>st=点击运行指令#§7{0} auto §b<脚本名> §a§l[▷] §e打开或者关闭某个脚本自动执行
+#sc=!!ae kill<>st=点击运行指令#§7{0} kill §b<脚本名> §a§l[▷] §e终止某个脚本运行
+#sc=!!ae des<>st=点击运行指令#§7{0} des §b<脚本名> §a§l[▷] §e修改某个脚本的简介
+#sc=!!ae set<>st=点击运行指令#§7{0} set §b<脚本名> <权限> §a§l[▷] §e修改某个脚本的权限
+#sc=!!ae reload<>st=点击运行指令#§7{0} reload §a§l[▷] §e重载插件
 '''.format(Prefix, "Auto execute", "1.1.0")
 
 
@@ -211,8 +211,8 @@ def show_list(source: CommandSource):
             with codecs.open(script_path.format(script), 'r', encoding="utf-8-sig") as fp:
                 con = json.load(fp)
                 if con:
-                    msg = f"- {script} #sc=!!ae run {script},st=运行脚本#§a§l[▷] #sc=!!ae remove {script},st=删除脚本#§c§l[×] " \
-                          f"#sc=!!ae look {script},st=查看脚本内容#§b§l[c] #sc=!!ae auto {script},st=添加脚本到自动启动列表#§d§l[o] " \
+                    msg = f"- {script} #sc=!!ae run {script}<>st=运行脚本#§a§l[▷] #sc=!!ae remove {script}<>st=删除脚本#§c§l[×] " \
+                          f"#sc=!!ae look {script}<>st=查看脚本内容#§b§l[c] #sc=!!ae auto {script}<>st=添加脚本到自动启动列表#§d§l[o] " \
                           f"##注释: {con['description'] if con['description'].strip() else '§7空'} "
 
                     msg_list.append(msg)
@@ -258,7 +258,7 @@ def show_content(source: CommandSource, dic: dict):
                 else:
                     msg_list.append("脚本命令: ")
                     for index, cmd in enumerate(con[i]):
-                        msg_list.append(f"- §e{index + 1} §r[#cc={cmd},st=复制内容到剪切板#§a{cmd}##§r]")
+                        msg_list.append(f"- §e{index + 1} §r[#cc={cmd}<>st=复制内容到剪切板#§a{cmd}##§r]")
 
         msg = "\n".join(msg_list)
         res = Message.get_json_str(msg)
@@ -297,8 +297,8 @@ def show_auto_list(source: CommandSource):
                 con = json.load(fp)
                 if con:
                     desc = con['description'].strip() if con['description'].strip() else '§7空'
-                    msg = f"- {script} #sc=!!ae run {script},st=运行脚本#§a§l[▷] #sc=!!ae remove {script},st=删除脚本#§c§l[×] " \
-                          f"#sc=!!ae look {script},st=查看脚本内容#§b§l[c] #sc=!!ae auto on {script},st=添加脚本到自动启动列表#§d§l[o] " \
+                    msg = f"- {script} #sc=!!ae run {script}<>st=运行脚本#§a§l[▷] #sc=!!ae remove {script}<>st=删除脚本#§c§l[×] " \
+                          f"#sc=!!ae look {script}<>st=查看脚本内容#§b§l[c] #sc=!!ae auto on {script}<>st=添加脚本到自动启动列表#§d§l[o] " \
                           f"##注释: {desc}"
 
                     msg_list.append(msg)
@@ -505,7 +505,7 @@ def thread_execute(source: CommandSource = CommandSource, dic: dict = dict, scri
         except Exception as e:
             source.reply(f"§4§l读取脚本{_script}失败,请检查脚本格式是否正确,错误信息:\n§e{e}")
 
-    execute_command(_script.strip("§a"), source).name = _script
+    execute_command(_script.replace("§a", ""), source).name = _script
 
 
 def reload_plugin(source: CommandSource):
@@ -518,10 +518,10 @@ def show_tasks(source: CommandSource):
         source.reply("§4§l没有脚本正在运行")
         return
 
-    msg_list = ["§d【自动启动列表】"]
+    msg_list = ["§d【运行列表】"]
 
     for i in running_tasks:
-        msg_list.append(f"- {i} #sc=!!ae kill {i},st=终止该脚本运行#§4§l[p]")
+        msg_list.append(f"- {i} #sc=!!ae kill {i}<>st=终止该脚本运行#§4§l[p]")
 
     msg = "\n".join(msg_list)
     res = Message.get_json_str(msg)
@@ -569,7 +569,8 @@ def on_load(server: PluginServerInterface, old):
 
     for literal in command_literals:
         permissions = level_dict.get(literal, [])
-        builder.literal(literal).requires(require.has_permission(permissions),failure_message_getter=lambda err: "权限不足")
+        builder.literal(literal).requires(require.has_permission(permissions),
+                                          failure_message_getter=lambda err: "权限不足")
 
     builder.register(server)
 
