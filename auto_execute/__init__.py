@@ -38,7 +38,7 @@ help_msg = '''
 #sc=!!ae des,st=点击运行指令#§7{0} des §b<脚本名> §a§l[▷] §e修改某个脚本的简介
 #sc=!!ae set,st=点击运行指令#§7{0} set §b<脚本名> <权限> §a§l[▷] §e修改某个脚本的权限
 #sc=!!ae reload,st=点击运行指令#§7{0} reload §a§l[▷] §e重载插件
-'''.format(Prefix, "Auto execute", "1.0.0")
+'''.format(Prefix, "Auto execute", "1.1.0")
 
 
 def create_script(source: CommandSource, dic: dict):
@@ -212,7 +212,7 @@ def show_list(source: CommandSource):
                 con = json.load(fp)
                 if con:
                     msg = f"- {script} #sc=!!ae run {script},st=运行脚本#§a§l[▷] #sc=!!ae remove {script},st=删除脚本#§c§l[×] " \
-                          f"#sc=!!ae look {script},st=查看脚本内容#§b§l[c] #sc=!!ae auto on {script},st=添加脚本到自动启动列表#§d§l[o] " \
+                          f"#sc=!!ae look {script},st=查看脚本内容#§b§l[c] #sc=!!ae auto {script},st=添加脚本到自动启动列表#§d§l[o] " \
                           f"##注释: {con['description'] if con['description'].strip() else '§7空'} "
 
                     msg_list.append(msg)
